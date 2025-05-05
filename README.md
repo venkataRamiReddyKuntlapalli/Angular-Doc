@@ -19,7 +19,8 @@ Ans:
 2. Decorators:
 
 Ans:
-In Angular, decorators are special functions that attach metadata to classes, methods, properties, or parameters. They are a feature of TypeScript and are prefixed with the @ symbol. Decorators play a crucial role in defining the structure and behavior of Angular applications.
+In Angular, decorators are special functions that attach metadata to classes, methods, properties, or parameters. They are a feature of TypeScript and are prefixed with the @ symbol. 0
+Decorators play a crucial role in defining the structure and behavior of Angular applications.
 
 Here are the main types of Angular decorators:
 
@@ -46,6 +47,7 @@ Parameter Decorators:
 Decorators are essential for Angular's dependency injection, component creation, and event handling.
 
 3. Forms
+
 4. Directives: https://v17.angular.io/guide/architecture-components#directives
 
 	In Angular, directives are used to extend the functionality of HTML elements by adding behavior to them. There are three main types of directives:
@@ -86,7 +88,8 @@ Decorators are essential for Angular's dependency injection, component creation,
 9. How ng build works -> how it create dist.
 10. CORS error why? how to resolve?
 
-CORS (Cross-Origin Resource Sharing) errors occur when your Angular application tries to make a request to a different origin (domain, protocol, or port) than the one from which it was served. This is a security feature implemented by browsers to prevent unauthorized requests.
+CORS (Cross-Origin Resource Sharing) errors occur when your Angular application tries to make a request to a different origin (domain, protocol, or port) 
+than the one from which it was served. This is a security feature implemented by browsers to prevent unauthorized requests.
 
 Server-Side Changes: The most reliable solution is to configure the server to allow cross-origin requests. The server needs to send specific CORS headers in its response. Common headers include:
 
@@ -119,7 +122,8 @@ Update your angular.json file to include the proxy configuration in the serve se
      b. Tree shaking
 Build with Production Flag: Use ng build --prod for tree shaking.
 Use ES Modules: Stick to ES6 module syntax.
- Ensure that you are using ES6 module syntax (e.g., import and export). Tree shaking works by analyzing the import/export statements, so using CommonJS (require/export) will not allow for effective tree shaking.
+ Ensure that you are using ES6 module syntax (e.g., import and export). Tree shaking works by analyzing the import/export statements, 
+ so using CommonJS (require/export) will not allow for effective tree shaking.
 Check angular.json: Ensure optimization settings are enabled.
 Manage Side Effects: Use the sideEffects field in package.json wisely.
 Implement Code Splitting: Use lazy loading for modules.
@@ -170,7 +174,6 @@ a. Pure Pipes (pure: true)
 
 Example:
 
-typescript
 @Pipe({ name: 'uppercasePipe', pure: true })
 export class UppercasePipe implements PipeTransform {
   transform(value: string): string {
@@ -182,13 +185,12 @@ export class UppercasePipe implements PipeTransform {
 b. Impure Pipes (pure: false)
 	Executes on every change detection cycle, even if the input remains the same.
 
-	seful when dealing with mutable objects like arrays or objects.
+	useful when dealing with mutable objects like arrays or objects.
 
 	Can impact performance if overused.
 
 Example:
 
-typescript
 @Pipe({ name: 'filterPipe', pure: false })
 export class FilterPipe implements PipeTransform {
   transform(items: any[], searchText: string): any[] {
@@ -209,7 +211,8 @@ Use Case	Immutable data			Mutable data (arrays, objects)
 	In Angular, the change detection cycle is the process that updates the DOM when the application state changes. Angular runs change detection automatically, but understanding how it works can help optimize performance.
 
 	# How Change Detection Works
-		Angular uses Zone.js to track asynchronous operations (like user interactions, HTTP requests, and timers). When an event occurs, Angular checks for changes in component properties and updates the view accordingly.
+		Angular uses Zone.js to track asynchronous operations (like user interactions, HTTP requests, and timers). When an event occurs, 
+		Angular checks for changes in component properties and updates the view accordingly.
 
 		Change Detection Strategies
 		Angular provides two strategies:
@@ -227,6 +230,7 @@ Use Case	Immutable data			Mutable data (arrays, objects)
 Ahead-of-Time (AOT) Compilation:
 
 AOT compiles the application during the build process, which results in faster rendering in the browser and smaller bundle sizes.
+
 Just-in-Time (JIT) Compilation:
 
 JIT compiles the application in the browser at runtime. It's mainly used during development for faster iterations.
@@ -234,7 +238,8 @@ JIT compiles the application in the browser at runtime. It's mainly used during 
 17. Routing
 18. Auth0:
 
-Route guards in Angular are used to control access to routes based on specific conditions. They help in securing routes by allowing or preventing navigation to a particular route. Angular provides several types of guards:
+Route guards in Angular are used to control access to routes based on specific conditions. 
+They help in securing routes by allowing or preventing navigation to a particular route. Angular provides several types of guards:
 
 CanActivate: Determines if a route can be activated.
 
@@ -301,7 +306,6 @@ export class AuthLoadGuard implements CanLoad {
 }
 Usage in Routing Module:
 
-typescript
 const routes: Routes = [
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canLoad: [AuthLoadGuard] }
 ];
@@ -358,11 +362,7 @@ For dynamic route matching → Use CanMatch
 		const defines constants that cannot be reassigned.
 			let name = "John";
 			const age = 30;
-	2. Arrow Functions
-Provides a concise syntax for functions.
-
-javascript
-const add = (a, b) => a + b;
+	
 
 21. Dependency injection:
 22. NGRXJS
