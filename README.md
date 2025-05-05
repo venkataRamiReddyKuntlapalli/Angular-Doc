@@ -358,6 +358,11 @@ For dynamic route matching → Use CanMatch
 		const defines constants that cannot be reassigned.
 			let name = "John";
 			const age = 30;
+	2. Arrow Functions
+Provides a concise syntax for functions.
+
+javascript
+const add = (a, b) => a + b;
 
 21. Dependency injection:
 22. NGRXJS
