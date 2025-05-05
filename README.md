@@ -1,3 +1,6 @@
+Updates from version to version in angular ??
+stanalone component ??
+signals ??
 Life cycle hooks: ??
 
 1. Local storage & cookie storage
@@ -44,7 +47,39 @@ Decorators are essential for Angular's dependency injection, component creation,
 
 3. Forms
 4. Directives: https://v17.angular.io/guide/architecture-components#directives
+
+	In Angular, directives are used to extend the functionality of HTML elements by adding behavior to them. There are three main types of directives:
+
+	a. Component Directives – These are the most common directives, essentially a combination of HTML templates and logic. Every Angular component is technically a directive.
+
+	B. Attribute Directives – These modify the appearance or behavior of an element, component, or another directive. Examples include:
+
+		NgClass (adds/removes CSS classes)
+
+		NgStyle (applies inline styles)
+
+		NgModel (enables two-way data binding)
+
+	c. Structural Directives – These change the DOM layout by adding or removing elements. Examples include:
+
+		NgIf (conditionally adds/removes elements)
+
+		NgFor (loops through an array to generate elements)
+
+		NgSwitch (conditionally renders elements based on a value)
+
 5. Interceptors
+
+	In Angular, an Interceptor is a powerful feature that allows you to modify HTTP requests and responses globally before they reach the server or the application. It is commonly used for:
+
+		Authentication: Adding authorization headers to outgoing requests.
+
+		Logging: Tracking API calls for debugging.
+
+		Error Handling: Catching and processing errors before they reach the application.
+
+		Caching: Storing responses to optimize performance
+		
 6. How angular app runs in the DOM while loading in browser
 7. Authentication & Authorization
 8. Diff ng build & ng serve
@@ -123,7 +158,69 @@ b. Dumb Components
 	Example: A component that displays a list of items passed to it by a parent component.
 
 13. Pure pipe & Impure pipe
+
+	In Angular, pure and impure pipes determine how frequently a pipe executes during change detection.
+
+a. Pure Pipes (pure: true)
+	Default behavior in Angular.
+
+	Executes only when the input value changes.
+
+	Efficient because it avoids unnecessary recalculations.
+
+Example:
+
+typescript
+@Pipe({ name: 'uppercasePipe', pure: true })
+export class UppercasePipe implements PipeTransform {
+  transform(value: string): string {
+    return value.toUpperCase();
+  }
+}
+	This pipe runs only when the input string changes.
+
+b. Impure Pipes (pure: false)
+	Executes on every change detection cycle, even if the input remains the same.
+
+	seful when dealing with mutable objects like arrays or objects.
+
+	Can impact performance if overused.
+
+Example:
+
+typescript
+@Pipe({ name: 'filterPipe', pure: false })
+export class FilterPipe implements PipeTransform {
+  transform(items: any[], searchText: string): any[] {
+    return items.filter(item => item.includes(searchText));
+  }
+}
+	This pipe runs every time change detection occurs, even if items hasn't changed.
+
+# Key Differences
+Feature		Pure Pipe				Impure Pipe
+Execution	Only when input changes	Every change detection cycle
+Performance	Optimized				Can be inefficient
+Use Case	Immutable data			Mutable data (arrays, objects)
+
+
 14. Change Detection
+
+	In Angular, the change detection cycle is the process that updates the DOM when the application state changes. Angular runs change detection automatically, but understanding how it works can help optimize performance.
+
+	# How Change Detection Works
+		Angular uses Zone.js to track asynchronous operations (like user interactions, HTTP requests, and timers). When an event occurs, Angular checks for changes in component properties and updates the view accordingly.
+
+		Change Detection Strategies
+		Angular provides two strategies:
+
+		Default (ChangeDetectionStrategy.Default) – 
+			
+			Runs change detection on all components whenever an event occurs.
+
+		OnPush (ChangeDetectionStrategy.OnPush) – 
+			Runs change detection only when input properties change, improving performance.
+
 15. sync / Async pipes
 16. AOT & JIT compiler
 
@@ -149,8 +246,119 @@ Resolve: Pre-fetches data before navigating to a route.
 
 CanLoad: Determines if a module can be loaded lazily.
 
+In Angular, route guards like CanActivate and CanLoad help secure routes by controlling access based on authentication, user roles, or permissions.
+
+1. Implementing CanActivate (Restricting Route Access)
+CanActivate prevents unauthorized users from navigating to a route.
+
+Example: Authentication Guard
+
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { AuthService } from './auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(): boolean {
+    if (this.authService.isLoggedIn()) {
+      return true;
+    }
+    this.router.navigate(['/login']);
+    return false;
+  }
+}
+Usage in Routing Module:
+
+const routes: Routes = [
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+];
+2. Implementing CanLoad (Restricting Lazy-Loaded Modules)
+CanLoad prevents unauthorized users from loading an entire module.
+
+Example: Lazy Loading Guard
+
+import { Injectable } from '@angular/core';
+import { CanLoad, Route, Router } from '@angular/router';
+import { AuthService } from './auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthLoadGuard implements CanLoad {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canLoad(route: Route): boolean {
+    if (this.authService.isLoggedIn()) {
+      return true;
+    }
+    this.router.navigate(['/login']);
+    return false;
+  }
+}
+Usage in Routing Module:
+
+typescript
+const routes: Routes = [
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canLoad: [AuthLoadGuard] }
+];
+Key Differences:
+
+Feature		CanActivate							CanLoad
+Purpose		Prevents unauthorized navigation	Prevents unauthorized module loading
+Use Case	Protects individual routes			Protects lazy-loaded modules
+Execution	Runs before navigation				Runs before module loading
+Performance Impact								Minimal	Prevents unnecessary module loading
+
+
+Guard				Purpose								Use Case
+CanActivate			Restricts route access				Authentication
+CanActivateChild	Restricts child routes				Admin panel
+CanLoad	Prevents 	lazy-loaded module access			Secure module loading
+CanDeactivate		Prevents navigation away			Unsaved form warning
+
+   this.settingsForm = this.fb.group({
+      username: [''],
+      email: ['']
+    });
+
+    this.settingsForm.valueChanges.subscribe(() => {
+      this.unsavedChanges = true;
+    });
+  }
+
+  hasUnsavedChanges(): boolean {
+    return this.unsavedChanges;
+  }
+  
+Resolve				Pre-fetches data before navigation	Load user data before profile page
+CanMatch			Dynamically matches routes			Role-based routing
+
+Which Guard Should You Use?
+For authentication → Use CanActivate
+
+For admin sections → Use CanActivateChild
+
+For lazy-loaded modules → Use CanLoad
+
+For unsaved changes → Use CanDeactivate
+
+For pre-fetching data → Use Resolve
+
+For dynamic route matching → Use CanMatch
+
 19. diff b/w observables & subjects:
 20. new ES6 features in JS
+	1. let and const for Variable Declaration
+		let allows block-scoped variables.
+
+		const defines constants that cannot be reassigned.
+			let name = "John";
+			const age = 30;
+
 21. Dependency injection:
 22. NGRXJS
 
