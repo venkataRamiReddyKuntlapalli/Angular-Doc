@@ -1,6 +1,21 @@
 Updates from version to version in angular ??
 stanalone component ??
 signals ??
+What is the difference between Subject and BehaviorSubject in RxJS?
+
+	https://copilot.microsoft.com/chats/r9ArMd6EQ33zRdAycfkX8
+
+RxJS & Observables – Operators like map, filter, reduce, switchMap, forkJoin ?
+
+Operator	Behavior
+mergeMap	Runs all inner observables in parallel
+concatMap	Runs inner observables one after another, in order
+exhaustMap	Ignores new values while the current observable is active
+switchMap	Cancels the previous observable when a new value arrives
+
+State Management – Using services, BehaviorSubject, and NgRx (if applicable).
+
+Performance Optimization – Change detection strategies (OnPush), async pipes, and memoization ?
 Life cycle hooks: ??
 
 1. Local storage & cookie storage
@@ -12,14 +27,16 @@ Ans:
 	localStorage.removeItem(key);
 	locaStoraage.clear();
 
-	Cookies are ideal for small amounts of data that need to be sent to the server, such as session identifiers. Using a library like ngx-cookie-service simplifies cookie management in Angular.
+	Cookies are ideal for small amounts of data that need to be sent to the server, such as session identifiers. Using a library 
+	like ngx-cookie-service simplifies cookie management in Angular.
 
 	npm install ngx-cookie-service
 	
 2. Decorators:
 
 Ans:
-In Angular, decorators are special functions that attach metadata to classes, methods, properties, or parameters. They are a feature of TypeScript and are prefixed with the @ symbol. 0
+In Angular, decorators are special functions that attach metadata to classes, methods, properties, or parameters. 
+They are a feature of TypeScript and are prefixed with the @ symbol.
 Decorators play a crucial role in defining the structure and behavior of Angular applications.
 
 Here are the main types of Angular decorators:
@@ -52,7 +69,8 @@ Decorators are essential for Angular's dependency injection, component creation,
 
 	In Angular, directives are used to extend the functionality of HTML elements by adding behavior to them. There are three main types of directives:
 
-	a. Component Directives – These are the most common directives, essentially a combination of HTML templates and logic. Every Angular component is technically a directive.
+	a. Component Directives – These are the most common directives, essentially a combination of HTML templates and logic. 
+	   Every Angular component is technically a directive.
 
 	B. Attribute Directives – These modify the appearance or behavior of an element, component, or another directive. Examples include:
 
@@ -72,7 +90,8 @@ Decorators are essential for Angular's dependency injection, component creation,
 
 5. Interceptors
 
-	In Angular, an Interceptor is a powerful feature that allows you to modify HTTP requests and responses globally before they reach the server or the application. It is commonly used for:
+	In Angular, an Interceptor is a powerful feature that allows you to modify HTTP requests 
+	and responses globally before they reach the server or the application. It is commonly used for:
 
 		Authentication: Adding authorization headers to outgoing requests.
 
@@ -208,7 +227,8 @@ Use Case	Immutable data			Mutable data (arrays, objects)
 
 14. Change Detection
 
-	In Angular, the change detection cycle is the process that updates the DOM when the application state changes. Angular runs change detection automatically, but understanding how it works can help optimize performance.
+	In Angular, the change detection cycle is the process that updates the DOM when the application state changes. 
+	Angular runs change detection automatically, but understanding how it works can help optimize performance.
 
 	# How Change Detection Works
 		Angular uses Zone.js to track asynchronous operations (like user interactions, HTTP requests, and timers). When an event occurs, 
@@ -224,7 +244,9 @@ Use Case	Immutable data			Mutable data (arrays, objects)
 		OnPush (ChangeDetectionStrategy.OnPush) – 
 			Runs change detection only when input properties change, improving performance.
 
-15. sync / Async pipes
+15. sync / Async pipes:
+	https://copilot.microsoft.com/chats/kbwYq81vfBEw4D1kibt7S
+	
 16. AOT & JIT compiler
 
 Ahead-of-Time (AOT) Compilation:
@@ -355,6 +377,8 @@ For pre-fetching data → Use Resolve
 For dynamic route matching → Use CanMatch
 
 19. diff b/w observables & subjects:
+	https://copilot.microsoft.com/chats/r9ArMd6EQ33zRdAycfkX8
+	
 20. new ES6 features in JS
 	1. let and const for Variable Declaration
 		let allows block-scoped variables.
