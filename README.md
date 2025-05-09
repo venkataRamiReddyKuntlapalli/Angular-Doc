@@ -220,7 +220,7 @@ export class FilterPipe implements PipeTransform {
 
 # Key Differences
 Feature		Pure Pipe				Impure Pipe
-Execution	Only when input changes	Every change detection cycle
+Execution	Only when input changes		Every change detection cycle
 Performance	Optimized				Can be inefficient
 Use Case	Immutable data			Mutable data (arrays, objects)
 
@@ -249,6 +249,8 @@ Use Case	Immutable data			Mutable data (arrays, objects)
 	
 16. AOT & JIT compiler
 
+
+
 Ahead-of-Time (AOT) Compilation:
 
 AOT compiles the application during the build process, which results in faster rendering in the browser and smaller bundle sizes.
@@ -256,6 +258,13 @@ AOT compiles the application during the build process, which results in faster r
 Just-in-Time (JIT) Compilation:
 
 JIT compiles the application in the browser at runtime. It's mainly used during development for faster iterations.
+
+How to Enable AOT or JIT?
+AOT: Enabled by default in Angular 9+ for production builds (ng build --prod).
+
+JIT: Used in development mode (ng serve).
+
+
 
 17. Routing
 18. Auth0:
@@ -298,6 +307,7 @@ export class AuthGuard implements CanActivate {
     return false;
   }
 }
+
 Usage in Routing Module:
 
 const routes: Routes = [
@@ -337,7 +347,7 @@ Feature		CanActivate							CanLoad
 Purpose		Prevents unauthorized navigation	Prevents unauthorized module loading
 Use Case	Protects individual routes			Protects lazy-loaded modules
 Execution	Runs before navigation				Runs before module loading
-Performance Impact								Minimal	Prevents unnecessary module loading
+Performance 	Impact								Minimal	Prevents unnecessary module loading
 
 
 Guard				Purpose								Use Case
@@ -390,4 +400,72 @@ For dynamic route matching → Use CanMatch
 
 21. Dependency injection:
 22. NGRXJS
+
+23. SCSS , SAAS  & CSS
+
+SCSS ( Sassy Cascading stye sheet ) :
+
+* Preprocessor scripting language
+* extension of CSS
+* Clean & Organized code
+* Allows to use :
+	1. mixins
+
+@mixin border-radius { /* Creates a mixin for adding a border radius */
+    -webkit-border-radius: 12px; /* Adds vendor prefixes for different browsers */
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    border-radius: 12px;
+  }
+    .button {
+    @include border-radius;
+    /* Includes the mixin in the .button class */
+  }
+
+	2. Functions:
+
+	* @function caclulate-rem($pixels) {
+	  @return $pixels/16 *1rem;
+	}
+
+	* width: calculate-rem(320);
+
+	3. Nested rules
+
+body {
+    background: #6fda44;
+    color: #ffffff;
+    h1 {
+        color:aquamarine;
+    }
+    p {
+        color:antiquewhite;
+    }
+}
+	4. Variables
+
+	$primary-color: #6fda44;   /* Stores the value #6fda44 in a variable */
+	.button {
+  	background-color: $primary-color;
+  	/* Uses the variable to set the button's background color */
+	}
+
+	5. Inheritance: @extend directive (shares set of css properties from one selector to another)
+
+	6. Control Directives :
+	
+	* @for - whenever want to apply styles to nth column 
+	
+	@for $i from 1 through 5 {
+	.column-#{$i} {
+	   width: 20%*$i;
+	}
+
+	* @if
+	* @else
+	* @each - when we have multiple values in variable and iterate over those 
+	* @while 
+
+
+
 
